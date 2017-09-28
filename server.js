@@ -10,7 +10,7 @@ require('./services/passport');
 
 const app = express();
 
-mongoose.connect(keys.mongoURI);
+mongoose.connect('mongodb://localhost/ghost-grub');
 
 app.use(
   cookieSession({
