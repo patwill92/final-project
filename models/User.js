@@ -15,8 +15,14 @@ const userSchema = new Schema({
   favoriteItems: [{
     // Store ObjectIds in the array
     type: Schema.Types.ObjectId,
-    // The ObjectIds will refer to the ids in the Note model
+    // The ObjectIds will refer to the ids in the Menu model
     ref: "Menu"
+  }],
+  previousOrders: [{
+    // Store ObjectIds in the array
+    type: Schema.Types.ObjectId,
+    // The ObjectIds will refer to the ids in the Orders model
+    ref: "Orders"
   }]
 });
 
