@@ -1,5 +1,5 @@
 /**
- * Font Awesome 5.0.0-rc1
+ * Font Awesome 5.0.0-rc2
  */
 
 (function () {
@@ -555,7 +555,7 @@ var namespace = w[NAMESPACE_IDENTIFIER];
 
 var noop$1 = function noop() {};
 var p = config.measurePerformance && PERFORMANCE && PERFORMANCE.mark && PERFORMANCE.measure ? PERFORMANCE : { mark: noop$1, measure: noop$1 };
-var preamble = 'FA "5.0.0-rc1"';
+var preamble = 'FA "5.0.0-rc2"';
 
 var begin = function begin(name) {
   p.mark(preamble + ' ' + name + ' begins');

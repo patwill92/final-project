@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './fontawesome/light'
+import './fontawesome/regular'
 import './fontawesome/solid'
 import './fontawesome/brands'
 import './fontawesome/fontawesome'

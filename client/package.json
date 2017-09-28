@@ -2,8 +2,16 @@
   "name": "client",
   "version": "0.1.0",
   "private": true,
-  "proxy": "http://localhost:3001/",
+  "proxy": {
+    "/auth/google": {
+      "target": "http://localhost:5000"
+    },
+    "/api/*": {
+      "target": "http://localhost:5000"
+    }
+  },
   "dependencies": {
+    "axios": "^0.16.2",
     "bootstrap": "4.0.0-beta",
     "classnames": "^2.2.5",
     "react": "^16.0.0",
