@@ -3,6 +3,10 @@ const { Schema } = mongoose;
 
 const adminSchema = new Schema(
 {
+  adminEmail: String,
+  required: true
+},
+{
   password: String
 },
 {
@@ -25,10 +29,6 @@ const adminSchema = new Schema(
 },
 {
   addressZip: String
-},
-{
-  adminEmail: String,
-  required: true
 }
 );
 

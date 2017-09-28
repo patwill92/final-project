@@ -2,7 +2,8 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  googleId: String
+  googleId: String,
+  required: true
 },
 {
   firstName: String
@@ -12,6 +13,21 @@ const userSchema = new Schema({
 },
 {
   userEmail: String
+},
+{
+  addressMain: String
+},
+{
+  addressSecond: String
+},
+{
+  addressCity: String
+},
+{
+  addressState: String
+},
+{
+  addressZip: String
 }
 );
 
