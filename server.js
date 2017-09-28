@@ -6,6 +6,7 @@ const passport = require('passport');
 
 const keys = require('./config/keys');
 require('./models/User');
+require('./models/Admin');
 require('./services/passport');
 
 const app = express();
