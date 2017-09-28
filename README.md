@@ -12,5 +12,5 @@ yarn
 cd ..
 
 # run app
-yarn start
+yarn dev
 ```
