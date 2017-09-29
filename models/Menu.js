@@ -26,6 +26,10 @@ const menuSchema = new Schema({
   special: {
     type: Boolean,
     default: false
+  },
+  deleted: {
+    type: Boolean,
+    default: false
   }
 });
 

@@ -6,6 +6,9 @@ const orderSchema = new Schema({
     type: Date,
     default: Date.now
   },
+  orderCompleteDate: {
+    type: Date
+  },
   orderTotalPrice: Number,
   orderItems: [{
     // Store ObjectIds in the array
