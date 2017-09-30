@@ -1,7 +1,8 @@
 const mongoose = require("mongoose");
-const db = require("../models");
+require("../models/Menu");
 mongoose.Promise = global.Promise;
 
+const Menu = mongoose.model('menu');
 // This file empties the Books collection and inserts the books below
 // Helpers:
 //  date: new Date(Date.now())
@@ -126,9 +127,9 @@ const menuSeed = [
   },
 ];
 
-db.Menu
+Menu
   .remove({})
-  .then(() => db.Menu.collection.insertMany(menuSeed))
+  .then(() => Menu.collection.insertMany(menuSeed))
   .then(data => {
     console.log(data.insertedIds.length + " records inserted!");
     process.exit(0);

@@ -7,10 +7,17 @@ const passport = require('passport');
 const keys = require('./config/keys');
 require('./models/User');
 require('./models/Admin');
+require('./models/Menu');
+require('./models/Orders');
+
 require('./services/passport');
 
 const app = express();
 
+
+// Set up promises with mongoose
+mongoose.Promise = global.Promise;
+// Connect to the Mongo DB
 mongoose.connect('mongodb://localhost/ghost-grub');
 
 app.use(
