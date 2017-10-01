@@ -9,7 +9,7 @@ import Home from './pages/home/Home'
 import Menu from './pages/menu/Menu'
 import Fail from './pages/menu/Fail'
 
-import {getCurrentUser, getMenu} from "./api/api";
+import {getCurrentUser, getDessertMenu, getMenu} from "./api/api";
 
 import './App.css';
 
@@ -23,7 +23,8 @@ class App extends Component {
       main: [],
       dessert: [],
       starter: []
-    }
+    },
+    order: {}
   };
 
   setWidth = () => {
@@ -47,17 +48,17 @@ class App extends Component {
     window.addEventListener("resize", this.setWidth.bind(this));
     window.addEventListener("scroll", this.setScroll.bind(this));
     let user = await getCurrentUser();
-    let menu = await getMenu();
+    let main = await getMenu('Main');
+    let dessert = await getMenu('Dessert');
+    let starter = await getMenu('Starter');
     if (user.data)
       this.setUser(user.data);
-    if (menu.data) {
-      let categories = {
-        main: _.remove(menu.data[0].items, item => item.category === 'Main'),
-        dessert: _.remove(menu.data[0].items, item => item.category === 'Dessert'),
-        starter: _.remove(menu.data[0].items, item => item.category === 'Starter')
-      };
-      this.setState({menu: {...categories}});
-    }
+    let categories = {
+      main: main.data,
+      dessert: dessert.data,
+      starter: starter.data
+    };
+    this.setState({menu: {...categories}});
   };
 
   componentWillUnmount = () => {
@@ -74,15 +75,12 @@ class App extends Component {
         <div>
           <Navbar user={user}/>
           <Route exact path="/" render={(props) => ( <Home size={size} scroll={scroll}/> )}/>
-          <Route path="/menu" render={(props) => ( <Menu menu={this.state.menu}/> )}/>
+          <Route path="/menu" render={(props) => ( <Menu menu={this.state.menu}/>)}/>
           <Route exact path="/fail" component={Fail}/>
-          <Route exact path="/admin" render={() => (
-            this.state.authenticated ? (
-              <Admin/>
-            ) : (
-              <Redirect to="/"/>
-            )
-          )}/>
+          <Route exact path="/admin"
+                 render={(props) => this.state.authenticated ?
+                   ( <Admin/> ) :
+                   (<Redirect to="/"/>)}/>
         </div>
       </Router>
     );

@@ -31,4 +31,12 @@ router.get('/menu', (req, res) => {
     })
 });
 
+router.get('/menu/:cat', (req, res) => {
+  Item
+    .find({category: req.params.cat})
+    .then((doc) => {
+      res.send(doc)
+    })
+});
+
 module.exports = router;

@@ -1,13 +1,13 @@
 import React, {Component} from 'react';
 
 const style = {
-  width: '350px'
+  maxWidth: '350px'
 };
 class AuthModal extends Component {
   render() {
     return (
       <div  className='modal fade' id={this.props.id} tabIndex="-1" role="dialog" aria-labelledby={`${this.props.id}Label`} aria-hidden="true">
-        <div style={style} className="modal-dialog ml-auth mr-auto" role="document">
+        <div style={style} className="modal-dialog" role="document">
           <div style={style} className="modal-content">
             <div className="modal-header">
               <h5 className="modal-title" id={`${this.props.id}Label`}>{this.props.title}</h5>

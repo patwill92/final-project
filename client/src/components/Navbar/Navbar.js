@@ -9,7 +9,7 @@ import SignupForm from '../Authentication/SignupForm'
 class Navbar extends Component {
   render() {
     let login = (
-      <ul className='navbar-nav ml-auto'>
+      <ul className='navbar-nav ml-0'>
         <li className="nav-item">
           <a className="nav-link" data-toggle="modal" data-target="#login">Login</a>
         </li>
@@ -19,7 +19,7 @@ class Navbar extends Component {
       </ul>
     );
     let logout = (
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ml-0">
         <li className="nav-item">
           <a className="nav-link">
             <span className="fa-layers">
@@ -43,6 +43,11 @@ class Navbar extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul className="navbar-nav ml-auto">
+              <li className="nav-item">
+                <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
+              </li>
+            </ul>
             {this.props.user ? logout : login}
           </div>
         </div>
@@ -61,6 +66,6 @@ class Navbar extends Component {
       </nav>
     );
   }
-};
+}
 
 export default Navbar;
