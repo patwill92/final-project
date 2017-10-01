@@ -24,6 +24,7 @@ router.get('/google/callback', passport.authenticate('google'), (req, res) => {
 });
 
 router.get('/facebook/callback', passport.authenticate('facebook'), (req, res) => {
-  res.redi
+  res.redirect('/')
+});
 
 module.exports = router;
