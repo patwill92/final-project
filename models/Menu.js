@@ -33,4 +33,6 @@ const menuSchema = new Schema({
   }
 });
 
-mongoose.model('menu', menuSchema);
+const Menu = mongoose.model("Menu", menuSchema);
+
+module.exports = Menu;
