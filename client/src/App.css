@@ -1,0 +1,16 @@
+.tab-link a{
+  color: rgb(33, 37, 41);
+}
+
+.tab-link .active {
+  color: #007bff !important;
+}
+
+.tab-link .active:hover {
+  background: #fff !important;
+}
+
+.tab-link a:hover{
+  background: #e9ecef;
+  cursor: pointer;
+}

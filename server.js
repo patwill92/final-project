@@ -1,27 +1,60 @@
 const express = require("express");
 const path = require("path");
 const mongoose = require('mongoose');
-const cookieSession = require('cookie-session');
+const bodyParser = require('body-parser');
+const expressValidator = require('express-validator');
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const MongoStore = require('connect-mongo')(session);
+const flash = require('connect-flash');
 const passport = require('passport');
 
+const Menu = require('./seed/TestData');
+const Item = require('./seed/TestItem');
+
 const keys = require('./config/keys');
-require('./models/User');
-require('./services/passport');
-
 const app = express();
-
+const localUsers = require("./routes/localAuthRoutes");
+const thirdPartyUsers = require("./routes/thirdPartyAuthRoutes");
+const apiRoutes = require("./routes/apiRoutes");
 mongoose.connect(keys.mongoURI);
 
-app.use(
-  cookieSession({
-    maxAge: 30*24*60*60*1000, // 30 days
-    keys: [keys.cookieKey]
+require('./services/passport');
+
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use(bodyParser.json());
+app.use(cookieParser());
+app.use(session({
+  secret: keys.cookieKey,
+  saveUninitialized: false,
+  resave: false,
+  store: new MongoStore({
+    url: keys.mongoURI,
+    ttl: 14 * 24 * 60 * 60
   })
-);
+}));
 app.use(passport.initialize());
 app.use(passport.session());
-
-require('./routes/authRoutes')(app);
+app.use(expressValidator({
+  errorFormatter(param, msg, value) {
+    let namespace = param.split('.')
+      , root = namespace.shift()
+      , formParam = root;
+    while (namespace.length) {
+      formParam += '[' + namespace.shift() + ']';
+    }
+    return {
+      param: formParam,
+      msg: msg,
+      value: value
+    };
+  }
+}));
+app.use(flash());
+app.use('/user', localUsers);
+app.use('/auth', thirdPartyUsers);
+app.use('/api', apiRoutes);
 
 if(process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));

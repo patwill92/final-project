@@ -2,7 +2,15 @@ const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
-  googleId: String
+  googleId: String,
+  facebookId: String,
+  name: String,
+  email: {
+    type: String,
+    unique: true
+  },
+  password: String
 });
 
-mongoose.model('users', userSchema);
+const User = mongoose.model('users', userSchema);
+module.exports = User;

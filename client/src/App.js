@@ -1,11 +1,15 @@
 import React, {Component} from 'react';
-import axios from 'axios';
-import {BrowserRouter as Router, Route} from 'react-router-dom';
+import _ from 'lodash'
+import isEmpty from 'lodash/isEmpty'
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 
 import Navbar from './components/Navbar/Navbar'
 import Admin from './pages/admin/Admin'
 import Home from './pages/home/Home'
 import Menu from './pages/menu/Menu'
+import Fail from './pages/menu/Fail'
+
+import {getCurrentUser, getMenu} from "./api/api";
 
 import './App.css';
 
@@ -13,7 +17,13 @@ class App extends Component {
   state = {
     width: window.innerWidth,
     scroll: window.pageYOffset,
-    user: false
+    authenticated: false,
+    user: {},
+    menu: {
+      main: [],
+      dessert: [],
+      starter: []
+    }
   };
 
   setWidth = () => {
@@ -24,25 +34,30 @@ class App extends Component {
     this.setState({scroll: window.pageYOffset});
   };
 
-  componentDidMount = () => {
+  setUser = (user) => {
+    this.setState({
+      authenticated: !isEmpty(user),
+      user: user
+    });
+  };
+
+  componentDidMount = async () => {
     this.setWidth();
     this.setScroll();
     window.addEventListener("resize", this.setWidth.bind(this));
     window.addEventListener("scroll", this.setScroll.bind(this));
-    axios.get('/api/current_user').then(({data}) => {
-      if(data._id) {
-        this.setState({user: true})
-      }
-    })
-  };
-
-  logoutUser = (e) => {
-    e.preventDefault();
-    axios.get('/api/logout').then((res) => {
-      if(!res) {
-        this.setState({user: false})
-      }
-    })
+    let user = await getCurrentUser();
+    let menu = await getMenu();
+    if (user.data)
+      this.setUser(user.data);
+    if (menu.data) {
+      let categories = {
+        main: _.remove(menu.data[0].items, item => item.category === 'Main'),
+        dessert: _.remove(menu.data[0].items, item => item.category === 'Dessert'),
+        starter: _.remove(menu.data[0].items, item => item.category === 'Starter')
+      };
+      this.setState({menu: {...categories}});
+    }
   };
 
   componentWillUnmount = () => {
@@ -53,15 +68,21 @@ class App extends Component {
   render() {
     let size = this.state.width;
     let scroll = this.state.scroll;
-    let user = this.state.user ? 'Yes' : 'No';
-
+    let user = !isEmpty(this.state.user) && this.state.user;
     return (
       <Router>
         <div>
-          <Navbar logoutUser={this.logoutUser} user={user}/>
-          <Route size={size} scroll={scroll} exact path="/" render={(props) => ( <Home size={size} scroll={scroll}/> )}/>
-          <Route exact path="/menu" component={Menu}/>
-          <Route exact path="/admin" component={Admin}/>
+          <Navbar user={user}/>
+          <Route exact path="/" render={(props) => ( <Home size={size} scroll={scroll}/> )}/>
+          <Route path="/menu" render={(props) => ( <Menu menu={this.state.menu}/> )}/>
+          <Route exact path="/fail" component={Fail}/>
+          <Route exact path="/admin" render={() => (
+            this.state.authenticated ? (
+              <Admin/>
+            ) : (
+              <Redirect to="/"/>
+            )
+          )}/>
         </div>
       </Router>
     );
