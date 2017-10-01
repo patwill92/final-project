@@ -11,10 +11,10 @@ class Navbar extends Component {
     let login = (
       <ul className='navbar-nav ml-0'>
         <li className="nav-item">
-          <a className="nav-link" data-toggle="modal" data-target="#login">Login</a>
+          <a href='#' className="nav-link" data-toggle="modal" data-target="#login">Login</a>
         </li>
         <li className="nav-item">
-          <a className="nav-link" data-toggle="modal" data-target="#signup">Signup</a>
+          <a href='#' className="nav-link" data-toggle="modal" data-target="#signup">Signup</a>
         </li>
       </ul>
     );
