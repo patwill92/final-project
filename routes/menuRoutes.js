@@ -6,7 +6,7 @@ module.exports = app => {
   app.get('/api/menus', (req, res) => {
       Menu
       .find({})
-      // .sort({ date: -1 })
+      .sort({ menuType: 1, menuSection: 1 })
       .then(dbModel => res.json(dbModel))
       .catch(err => res.status(422).json(err));
 })};

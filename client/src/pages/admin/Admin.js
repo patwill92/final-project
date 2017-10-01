@@ -3,7 +3,9 @@ import API from "../../utils/API"
 
 class Admin extends Component {
   state = {
-    menus: []
+    menus: [],
+    menuType: "",
+    menuSection: ""
   };
 
   componentDidMount() {
@@ -27,28 +29,68 @@ class Admin extends Component {
         <div>
           {this.state.menus.length ? (
             <div className="list-overflow-container">
-              <ul className="list-group">
-                {this.state.menus.map(menu => (
-                  <li className="list-group-item" key={menu._id}>
-                    <p>{menu.menuType} </p>
-                    <p>{menu.menuSection} </p>
-                    <p>{menu.itemName} </p>
-                    <p>{menu.itemDescription} </p>
-                    <p>{menu.itemPrice} </p>
-                    <p>{menu.available} </p>
-                    <p>{menu.special} </p>
-                    <p>{menu.deleted} </p>
-                    {/* <DeleteBtn /> */}
-                  </li>
+              <table className="table">
+                <thead className="thead-default">
+                  <tr>
+                    <th>Menu Type</th>
+                    <th>Section </th>
+                    <th>Item </th>
+                    <th>Description </th>
+                    <th>Price </th>
+                    <th>Available</th>
+                    <th>Special </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {this.state.menus.map(menu => (
+                  <tr key={menu._id}>
+                    <TypeHeader menuType={menu.menuType}/>
+                    <td>{menu.menuSection} </td>
+                    <td>{menu.itemName} </td>
+                    <td>{menu.itemDescription} </td>
+                    <td>{menu.itemPrice} </td>
+                    {menu.available ? (
+                        <td>Yes</td>
+                      ) : (
+                        <td>No</td>
+                      )
+                    }
+                    {menu.special ? (
+                      <td>Yes</td>
+                    ) : (
+                        <td>No</td>
+                      )
+                    }
+                    <td><button type="submit"
+                      className="btn btn-default"
+                      onClick={this.handleEditMenu}
+                      id="editMenu"><i className="fa fa-pencil"></i> Edit</button> </td>
+                    <td><button type="submit"
+                      className="btn btn-default"
+                      onClick={this.handleEditDelete}
+                      id="editMenu"><i className="fa fa-window-close"></i> Delete</button> </td>
+                  </tr>
                 ))}
-              </ul>
+                </tbody>
+              </table>
             </div>
           ) : (
-              <h3>No Results to Display</h3>
+              <h3>No Menu Items Added Yet</h3>
             )}
         </div>
       </div>
     );
+  }
+}
+
+let prevHeader = "";
+function TypeHeader (props) {
+  const typeHeaderValue = props.menuType;
+  if (prevHeader === typeHeaderValue) {
+    return <td>{"   "}</td>;
+  } else {
+    prevHeader = typeHeaderValue;
+    return <td><strong>{typeHeaderValue}</strong></td>
   }
 }
 
