@@ -1,8 +1,7 @@
 const mongoose = require("mongoose");
-require("../models/Menu");
+const Menu = require("../models/Menu");
 mongoose.Promise = global.Promise;
 
-const Menu = mongoose.model('menu');
 // This file empties the Books collection and inserts the books below
 // Helpers:
 //  date: new Date(Date.now())

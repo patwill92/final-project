@@ -5,16 +5,16 @@ export default {
   getMenus: function() {
     return axios.get("/api/menus");
   },
-  // Gets the book with the given id
-  getBook: function(id) {
-    return axios.get("/api/books/" + id);
-  },
   // Deletes the book with the given id
-  deleteBook: function(id) {
-    return axios.delete("/api/books/" + id);
+  deleteMenu: function (id) {
+    return axios.delete("/api/menus/" + id);
+  },
+  // Gets the book with the given id
+  getMenu: function(id) {
+    return axios.get("/api/menus/" + id);
   },
   // Saves a book to the database
-  saveBook: function(bookData) {
-    return axios.post("/api/books", bookData);
+  saveMenu: function(menuData) {
+    return axios.post("/api/menus", menuData);
   }
 };

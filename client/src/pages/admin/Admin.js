@@ -20,6 +20,13 @@ class Admin extends Component {
       .catch(err => console.log(err))
   };
 
+  deleteMenu = id => {
+    API.deleteMenu(id)
+      .then(res => this.loadmenus())
+      // .then(res => console.log(res.data)     )
+      .catch(err => console.log(err))
+  };
+
   render() {
     return (
       <div className="jumbotron jumbotron-fluid">
@@ -67,7 +74,7 @@ class Admin extends Component {
                       id="editMenu"><i className="fa fa-pencil"></i> Edit</button> </td>
                     <td><button type="submit"
                       className="btn btn-default"
-                      onClick={this.handleEditDelete}
+                      onClick={() => this.deleteMenu(menu._id)}
                       id="editMenu"><i className="fa fa-window-close"></i> Delete</button> </td>
                   </tr>
                 ))}
