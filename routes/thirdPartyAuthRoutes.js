@@ -12,21 +12,18 @@ checkForToken = (req, res, next) => {
   }
 };
 
-router.get('/google', checkForToken, passport.authenticate('google', {
+router.get('/google', passport.authenticate('google', {
     scope: ['profile', 'email']
   })
 );
 
-router.get('/facebook', checkForToken, passport.authenticate('facebook'));
+router.get('/facebook', passport.authenticate('facebook'));
 
 router.get('/google/callback', passport.authenticate('google'), (req, res) => {
   res.redirect('/')
 });
 
 router.get('/facebook/callback', passport.authenticate('facebook'), (req, res) => {
-  res.redirect('/')
-});
-
-
+  res.redi
 
 module.exports = router;
