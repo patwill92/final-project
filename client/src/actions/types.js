@@ -6,3 +6,4 @@ export const GET_USER = 'GET_USER';
 export const GET_MAIN_MENU = 'GET_MAIN_MENU';
 export const GET_DESSERT_MENU = 'GET_DESSERT_MENU';
 export const GET_STARTER_MENU = 'GET_STARTER_MENU';
+export const GET_CART = 'GET_CART';

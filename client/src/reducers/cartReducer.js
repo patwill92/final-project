@@ -1,20 +1,13 @@
-const cartReducer = (state = {
-  cart: [],
-  totalPrice: 0
-}, action) => {
-  switch(action.type) {
-    case "ADD_CART_ITEM":
-      state = {
-        ...state,
-        width: action.payload
-      }; break;
-    case "DELETE_CART_ITEM":
-      state = {
-        ...state,
-        scroll: action.payload
-      }; break;
-  }
-  return state;
-};
+import {GET_CART} from "../actions/types";
 
-export default cartReducer;
+export default (state = null, action) => {
+  console.log(action);
+  switch (action.type) {
+    case GET_CART:
+      return action.payload || false;
+    default:
+      return state;
+  }
+}
+
+

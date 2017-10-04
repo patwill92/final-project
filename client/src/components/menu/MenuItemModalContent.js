@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
+import axios from 'axios';
 
 const Checkbox = props => (
   <div className="form-check">
-    <label className="form-check-label">
-      <input value={props.item.toLowerCase()} name={props.item} onChange={props.checkChange} type="checkbox" className="form-check-input mr-2"/>
+    <label className="form-sides-label">
+      <input value={props.item.toLowerCase()} name={props.item} onChange={props.sidesChange} type="checkbox" className="form-check-input mr-2"/>
       {props.item}
     </label>
   </div>
@@ -12,8 +13,8 @@ const Checkbox = props => (
 class MenuItemModalContent extends Component {
   state = {
     text: '',
-    check: [],
-    qty: ''
+    sides: [],
+    qty: 1
   };
 
   toggleCheckbox = () => {
@@ -29,17 +30,21 @@ class MenuItemModalContent extends Component {
     })
   };
 
-  checkChange = (e) => {
+  sidesChange = (e) => {
     if(e.target.checked)
-      this.setState({check: [...this.state.check, e.target.value]});
+      this.setState({sides: [...this.state.sides, e.target.value]});
     else
-      this.setState({check: [...this.state.check.slice(0, this.state.check.indexOf(e.target.value)), ...this.state.check.slice(this.state.check.indexOf(e.target.value) + 1)]});
+      this.setState({sides: [...this.state.sides.slice(0, this.state.sides.indexOf(e.target.value)), ...this.state.sides.slice(this.state.sides.indexOf(e.target.value) + 1)]});
   };
 
   handleSubmit = (e) => {
     e.preventDefault();
-    console.log('you clicked something')
+    axios.post(`/api/add_cart/${this.props.info.id}`, this.state)
+      .then(res => {
+        console.log(res.data);
+      })
   };
+
   render() {
     let name = this.props.info.name;
     let price = this.props.info.price;
@@ -52,8 +57,8 @@ class MenuItemModalContent extends Component {
     let myList = ['Fries', 'Sweet Potato Fries', 'Warm Potato Salad', 'Texas Toast', 'Quinoa', 'House Salad', 'Cesar Salad', 'pudding'];
     let cbxList1 = myList.slice(0, myList.length / 2);
     let cbxList2 = myList.slice(myList.length / 2);
-    cbxList1 = cbxList1.map((item, i) => (<Checkbox checkChange={this.checkChange} item={item} key={i}/>));
-    cbxList2 = cbxList2.map((item, i) => (<Checkbox checkChange={this.checkChange} item={item} key={i}/>));
+    cbxList1 = cbxList1.map((item, i) => (<Checkbox sidesChange={this.sidesChange} item={item} key={i}/>));
+    cbxList2 = cbxList2.map((item, i) => (<Checkbox sidesChange={this.sidesChange} item={item} key={i}/>));
     return (
       <form>
         <div className="card border-0 mb-0 rounded-0">
@@ -71,7 +76,7 @@ class MenuItemModalContent extends Component {
               Sides
             </div>
             <div className='d-flex flex-row justify-content-between align-items-end'>
-              <div className='d-flex flex-column justify-content-between align-items-start pl-1 pr-4'>
+              <div className='d-flex flex-column justify-content-between align-items-start pl-4 pr-4'>
                 {cbxList1}
               </div>
               <div className='d-flex flex-column justify-content-between align-items-start pl-4 pr-4'>
@@ -85,7 +90,7 @@ class MenuItemModalContent extends Component {
           </div>
           <div className="card-footer bg-transparent d-flex justify-content-between">
             <button data-dismiss="modal" aria-label="Close" className="btn btn-outline-danger rounded-0">Cancel</button>
-            <button onClick={this.handleSubmit} type='submit' data-dismiss="modal" aria-label="Close" className="btn btn-success rounded-0"><i className="fal fa-shopping-bag"></i> Add to Lunchbox</button>
+            <button onClick={this.handleSubmit} type='submit' className="btn btn-success rounded-0"><i className="fal fa-shopping-bag"></i> Add to Lunchbox</button>
           </div>
         </div>
       </form>

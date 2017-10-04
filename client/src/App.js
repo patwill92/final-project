@@ -12,20 +12,23 @@ import './App.css';
 class App extends Component {
 
   componentDidMount() {
-    window.addEventListener("resize", this.props.getWidth);
-    window.addEventListener("scroll", this.props.getScroll);
+    // window.addEventListener("resize", this.props.getWidth);
+    // window.addEventListener("scroll", this.props.getScroll);
     this.props.getMainMenu();
     this.props.getStarterMenu();
     this.props.getDessertMenu();
     this.props.getUser();
+    this.props.getCart();
   };
 
-  componentWillUnmount = () => {
-    window.removeEventListener("resize", this.props.getWidth);
-    window.removeEventListener("scroll", this.props.getScroll);
-  };
+  // componentWillUnmount = () => {
+  //   window.removeEventListener("resize", this.props.getWidth);
+  //   window.removeEventListener("scroll", this.props.getScroll);
+  // };
 
   render() {
+    let test = this.props.cart ? this.props.cart : null;
+    console.log(test);
     return (
       <Router>
         <div>
@@ -39,5 +42,9 @@ class App extends Component {
   }
 }
 
-export default connect(null, actions)(App);
+function mapStateToProps({cart}) {
+  return { cart }
+}
+
+export default connect(mapStateToProps, actions)(App);
 

@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {GET_MAIN_MENU, GET_DESSERT_MENU, GET_STARTER_MENU,
-  GET_USER, GET_SCROLL, GET_WIDTH, ADD_CART_ITEM, DELETE_CART_ITEM
+  GET_USER, GET_SCROLL, GET_WIDTH, GET_CART, DELETE_CART_ITEM
 } from "./types";
 
 export const getMainMenu = (param) => async dispatch => {
@@ -25,25 +25,16 @@ export const getWidth = () => {
     type: GET_WIDTH,
     payload: window.innerWidth
   }
-}
+};
 
 export const getScroll = () => {
   return {
     type: GET_SCROLL,
     payload: window.pageYOffset
   }
-}
+};
 
-export const addCartItem = (item) => {
-  return {
-    type: ADD_CART_ITEM,
-    payload: item
-  }
-}
-
-export const deleteCartItem = (item) => {
-  return {
-    type: DELETE_CART_ITEM,
-    payload: item
-  }
-}
+export const getCart = () => async dispatch => {
+  const res = await axios.get('/api/cart');
+  dispatch({type: GET_CART, payload: res.data})
+};
