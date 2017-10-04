@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
 import {Link} from 'react-router-dom';
-import axios from 'axios';
-
+import {connect} from 'react-redux';
 import AuthModal from '../Authentication/AuthModal'
 import LoginForm from '../Authentication/LoginForm'
 import SignupForm from '../Authentication/SignupForm'
@@ -9,17 +8,23 @@ import SignupForm from '../Authentication/SignupForm'
 class Navbar extends Component {
   render() {
     let login = (
-      <ul className='navbar-nav ml-0'>
+      <ul className='navbar-nav ml-auto'>
         <li className="nav-item">
-          <a href='#' className="nav-link" data-toggle="modal" data-target="#login">Login</a>
+          <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
         </li>
         <li className="nav-item">
-          <a href='#' className="nav-link" data-toggle="modal" data-target="#signup">Signup</a>
+          <span className="nav-link" data-toggle="modal" data-target="#login">Login</span>
+        </li>
+        <li className="nav-item">
+          <span className="nav-link" data-toggle="modal" data-target="#signup">Signup</span>
         </li>
       </ul>
     );
     let logout = (
-      <ul className="navbar-nav ml-0">
+      <ul className="navbar-nav ml-auto">
+        <li className="nav-item">
+          <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
+        </li>
         <li className="nav-item">
           <a className="nav-link">
             <span className="fa-layers">
@@ -34,6 +39,18 @@ class Navbar extends Component {
         </li>
       </ul>
     );
+    const navbarStatus = () => {
+      switch(this.props.user) {
+        case null:
+          return '';
+          break;
+        case false:
+          return login;
+          break;
+        default:
+          return logout
+      }
+    };
     return (
       <nav className="navbar navbar-expand-lg navbar-light bg-light">
         <div className="container">
@@ -43,12 +60,7 @@ class Navbar extends Component {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav ml-auto">
-              <li className="nav-item">
-                <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
-              </li>
-            </ul>
-            {this.props.user ? logout : login}
+            {navbarStatus()}
           </div>
         </div>
         <AuthModal
@@ -68,4 +80,8 @@ class Navbar extends Component {
   }
 }
 
-export default Navbar;
+function mapStateToProps({user}) {
+  return { user }
+}
+
+export default connect(mapStateToProps)(Navbar);

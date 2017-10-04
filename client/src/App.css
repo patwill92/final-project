@@ -14,3 +14,7 @@
   background: #e9ecef;
   cursor: pointer;
 }
+
+select:hover, select *:hover {
+  cursor: pointer !important;
+}

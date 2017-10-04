@@ -4,7 +4,7 @@ const router = express.Router();
 const Menu = require('../seed/TestData');
 const Item = require('../seed/TestItem');
 
-ensureAuthenticated = (req, res, next) => {
+const ensureAuthenticated = (req, res, next) => {
   if (req.isAuthenticated()) {
     next();
   } else {
@@ -13,8 +13,15 @@ ensureAuthenticated = (req, res, next) => {
 };
 
 router.get('/current_user', (req, res) => {
+  let user;
+  if (req.user)
+    user = req.user && {
+      ...req.user._doc,
+      password: null
+    };
+  console.log(user);
   if (req.user) {
-    res.send(req.user);
+    res.send(user);
   } else {
     res.send('')
   }

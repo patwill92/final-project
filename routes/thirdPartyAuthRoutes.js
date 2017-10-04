@@ -2,7 +2,7 @@ const passport = require('passport');
 const express = require('express');
 const router = express.Router();
 
-checkForToken = (req, res, next) => {
+const checkForToken = (req, res, next) => {
   if (req.user) {
     return res.status(403).send({
       message: 'User already logged in'

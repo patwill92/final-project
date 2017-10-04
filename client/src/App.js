@@ -1,90 +1,43 @@
 import React, {Component} from 'react';
-import _ from 'lodash'
-import isEmpty from 'lodash/isEmpty'
+import {connect} from 'react-redux';
 import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
-
+import * as actions from './actions';
 import Navbar from './components/Navbar/Navbar'
-import Admin from './pages/admin/Admin'
 import Home from './pages/home/Home'
 import Menu from './pages/menu/Menu'
 import Fail from './pages/menu/Fail'
 
-import {getCurrentUser, getDessertMenu, getMenu} from "./api/api";
-
 import './App.css';
 
 class App extends Component {
-  state = {
-    width: window.innerWidth,
-    scroll: window.pageYOffset,
-    authenticated: false,
-    user: {},
-    menu: {
-      main: [],
-      dessert: [],
-      starter: []
-    },
-    order: {}
-  };
 
-  setWidth = () => {
-    this.setState({width: window.innerWidth});
-  };
-
-  setScroll = () => {
-    this.setState({scroll: window.pageYOffset});
-  };
-
-  setUser = (user) => {
-    this.setState({
-      authenticated: !isEmpty(user),
-      user: user
-    });
-  };
-
-  componentDidMount = async () => {
-    this.setWidth();
-    this.setScroll();
-    window.addEventListener("resize", this.setWidth.bind(this));
-    window.addEventListener("scroll", this.setScroll.bind(this));
-    let user = await getCurrentUser();
-    let main = await getMenu('Main');
-    let dessert = await getMenu('Dessert');
-    let starter = await getMenu('Starter');
-    if (user.data)
-      this.setUser(user.data);
-    let categories = {
-      main: main.data,
-      dessert: dessert.data,
-      starter: starter.data
-    };
-    this.setState({menu: {...categories}});
+  componentDidMount() {
+    window.addEventListener("resize", this.props.getWidth);
+    window.addEventListener("scroll", this.props.getScroll);
+    this.props.getMainMenu();
+    this.props.getStarterMenu();
+    this.props.getDessertMenu();
+    this.props.getUser();
   };
 
   componentWillUnmount = () => {
-    window.removeEventListener("resize", this.setWidth.bind(this));
-    window.removeEventListener("scroll", this.setScroll.bind(this));
+    window.removeEventListener("resize", this.props.getWidth);
+    window.removeEventListener("scroll", this.props.getScroll);
   };
 
   render() {
-    let size = this.state.width;
-    let scroll = this.state.scroll;
-    let user = !isEmpty(this.state.user) && this.state.user;
     return (
       <Router>
         <div>
-          <Navbar user={user}/>
-          <Route exact path="/" render={(props) => ( <Home size={size} scroll={scroll}/> )}/>
-          <Route path="/menu" render={(props) => ( <Menu menu={this.state.menu}/>)}/>
+          <Navbar/>
+          <Route exact path="/" component={Home}/>
+          <Route path="/menu" component={Menu}/>
           <Route exact path="/fail" component={Fail}/>
-          <Route exact path="/admin"
-                 render={(props) => this.state.authenticated ?
-                   ( <Admin/> ) :
-                   (<Redirect to="/"/>)}/>
         </div>
       </Router>
-    );
+    )
   }
 }
 
-export default App;
+export default connect(null, actions)(App);
+
