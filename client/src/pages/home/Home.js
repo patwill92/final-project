@@ -1,14 +1,18 @@
 import React, {Component} from 'react';
 import { connect } from 'react-redux';
+import Navbar from "../../components/Navbar/Navbar"
 
 class Home extends Component {
   render() {
     return (
-      <div className="jumbotron jumbotron-fluid">
-        <div className="container">
-          <h1 className="display-3">Home</h1>
-          <p className="lead">Window Width: {this.props.width}</p>
-          <p className="lead">Scroll Position: {this.props.scroll}</p>
+      <div>
+        <Navbar/>
+        <div className="jumbotron jumbotron-fluid">
+          <div className="container">
+            <h1 className="display-3">Home</h1>
+            <p className="lead">Window Width: {this.props.width}</p>
+            <p className="lead">Scroll Position: {this.props.scroll}</p>
+          </div>
         </div>
       </div>
     );

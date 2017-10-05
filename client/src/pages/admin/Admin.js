@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import API from "../../utils/API"
+import API from "../../utils/API";
+import AdminNavbar from "../../components/AdminNavBar/AdminNavbar"
+import LoginForm from "../../components/Authentication/LoginForm"
 
 class Admin extends Component {
   state = {
@@ -29,62 +31,65 @@ class Admin extends Component {
 
   render() {
     return (
-      <div className="jumbotron jumbotron-fluid">
-        <div className="container">
-          <h1 className="display-3">Admin</h1>
-        </div>
-        <div>
-          {this.state.menus.length ? (
-            <div className="list-overflow-container">
-              <table className="table">
-                <thead className="thead-default">
-                <tr>
-                  <th>Menu Type</th>
-                  <th>Section </th>
-                  <th>Item </th>
-                  <th>Description </th>
-                  <th>Price </th>
-                  <th>Available</th>
-                  <th>Special </th>
-                </tr>
-                </thead>
-                <tbody>
-                {this.state.menus.map(menu => (
-                  <tr key={menu._id}>
-                    <TypeHeader menuType={menu.menuType}/>
-                    <td>{menu.menuSection} </td>
-                    <td>{menu.itemName} </td>
-                    <td>{menu.itemDescription} </td>
-                    <td>{menu.itemPrice} </td>
-                    {menu.available ? (
-                      <td>Yes</td>
-                    ) : (
-                      <td>No</td>
-                    )
-                    }
-                    {menu.special ? (
-                      <td>Yes</td>
-                    ) : (
-                      <td>No</td>
-                    )
-                    }
-                    <td><button type="submit"
-                                className="btn btn-default"
-                                onClick={this.handleEditMenu}
-                                id="editMenu"><i className="fa fa-pencil"></i> Edit</button> </td>
-                    <td><button type="submit"
-                                className="btn btn-default"
-                                onClick={() => this.deleteMenu(menu._id)}
-                                id="editMenu"><i className="fa fa-window-close"></i> Delete</button> </td>
+      <div>
+         <LoginForm/>
+        {/* <div className="jumbotron jumbotron-fluid">
+          <div className="container">
+            <h1 className="display-3">Admin</h1>
+          </div>
+          <div>
+            {this.state.menus.length ? (
+              <div className="list-overflow-container">
+                <table className="table">
+                  <thead className="thead-default">
+                  <tr>
+                    <th>Menu Type</th>
+                    <th>Section </th>
+                    <th>Item </th>
+                    <th>Description </th>
+                    <th>Price </th>
+                    <th>Available</th>
+                    <th>Special </th>
                   </tr>
-                ))}
-                </tbody>
-              </table>
-            </div>
-          ) : (
-            <h3>No Menu Items Added Yet</h3>
-          )}
-        </div>
+                  </thead>
+                  <tbody>
+                  {this.state.menus.map(menu => (
+                    <tr key={menu._id}>
+                      <TypeHeader menuType={menu.menuType}/>
+                      <td>{menu.menuSection} </td>
+                      <td>{menu.itemName} </td>
+                      <td>{menu.itemDescription} </td>
+                      <td>{menu.itemPrice} </td>
+                      {menu.available ? (
+                        <td>Yes</td>
+                      ) : (
+                        <td>No</td>
+                      )
+                      }
+                      {menu.special ? (
+                        <td>Yes</td>
+                      ) : (
+                        <td>No</td>
+                      )
+                      }
+                      <td><button type="submit"
+                                  className="btn btn-default"
+                                  onClick={this.handleEditMenu}
+                                  id="editMenu"><i className="fa fa-pencil"></i> Edit</button> </td>
+                      <td><button type="submit"
+                                  className="btn btn-default"
+                                  onClick={() => this.deleteMenu(menu._id)}
+                                  id="editMenu"><i className="fa fa-window-close"></i> Delete</button> </td>
+                    </tr>
+                  ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : (
+              <h3>No Menu Items Added Yet</h3>
+            )}
+          </div>
+        </div> */}
       </div>
     );
   }
