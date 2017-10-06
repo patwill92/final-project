@@ -14,10 +14,10 @@ class Navbar extends Component {
           <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
         </li>
         <li className="nav-item">
-          <span className="nav-link" data-toggle="modal" data-target="#login">Login</span>
+          <a href='#' className="nav-link" data-toggle="modal" data-target="#login">Login</a>
         </li>
         <li className="nav-item">
-          <span className="nav-link" data-toggle="modal" data-target="#signup">Signup</span>
+          <a href='#' className="nav-link" data-toggle="modal" data-target="#signup">Signup</a>
         </li>
       </ul>
     );
