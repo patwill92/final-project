@@ -8,7 +8,12 @@ const uri = "http://locathost:8080";
 
 const socket = openSocket('http://localhost:8080');
 
+const style = {
+    boxShadow: '0px 0px 1px 0px rgba(88, 88, 96, 0.46)'
+  };
+
 class OrderList extends Component {
+   
 
     state = {
         value: " ",
@@ -40,7 +45,7 @@ class OrderList extends Component {
             <div>
                 <AdminNavbar/>
                 <div>
-                    <div className={styles.show_comments}>
+                    <div style={style} className={styles.show_comments}>
                         {this.state.comments}
                     </div>
                 </div>

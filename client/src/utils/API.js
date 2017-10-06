@@ -5,6 +5,9 @@ export default {
   getMenus: function() {
     return axios.get("/api/menus");
   },
+  getOrders: function() {
+    return axios.get("/api/orders")
+  },
   // Deletes the book with the given id
   deleteMenu: function (id) {
     return axios.delete("/api/menus/" + id);
