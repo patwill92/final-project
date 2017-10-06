@@ -3,7 +3,6 @@
  */
 
 (function () {
-'use strict';
 
 function ___$insertStyle(css) {
   if (!css) {

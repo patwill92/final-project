@@ -1,10 +1,27 @@
-import {GET_CART} from "../actions/types";
+import {GET_CART, UPDATE_CART} from "../actions/types";
+import isEmpty from 'lodash/isEmpty';
 
-export default (state = null, action) => {
-  console.log(action);
+export default (state = {
+  items: []
+}, action) => {
   switch (action.type) {
     case GET_CART:
-      return action.payload || false;
+      if (isEmpty(action.payload)) {
+        return {
+          ...state,
+          totalQty: 0
+        };
+      } else {
+        return {
+          ...state,
+          ...action.payload
+        };
+      }
+    case UPDATE_CART:
+      return {
+        ...state,
+        ...action.payload
+      };
     default:
       return state;
   }

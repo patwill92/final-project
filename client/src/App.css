@@ -18,3 +18,26 @@
 select:hover, select *:hover {
   cursor: pointer !important;
 }
+
+.cart {
+  position: relative;
+}
+
+.shop:hover, .shop:hover div small, .shop:hover .fa-shopping-bag, .shop:hover .lunch {
+  cursor: pointer;
+  color: rgba(0, 0, 0, 0.7) !important;
+}
+
+.cart span, .cart small {
+  color: rgba(0, 0, 0, 0.5);
+}
+
+.cart-qty {
+  position: absolute;
+  top: 1px;
+}
+
+.middle {
+  border-left: 5px solid #fff;
+  border-right: 5px solid #fff;
+}

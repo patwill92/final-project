@@ -1,10 +1,13 @@
 import React, {Component} from 'react';
+import * as actions from '../../actions';
+import {connect} from 'react-redux';
 import axios from 'axios';
 
 const Checkbox = props => (
   <div className="form-check">
     <label className="form-sides-label">
-      <input value={props.item.toLowerCase()} name={props.item} onChange={props.sidesChange} type="checkbox" className="form-check-input mr-2"/>
+      <input value={props.item.toLowerCase()} name={props.item} onChange={props.sidesChange} type="checkbox"
+             className="form-check-input mr-2"/>
       {props.item}
     </label>
   </div>
@@ -31,7 +34,7 @@ class MenuItemModalContent extends Component {
   };
 
   sidesChange = (e) => {
-    if(e.target.checked)
+    if (e.target.checked)
       this.setState({sides: [...this.state.sides, e.target.value]});
     else
       this.setState({sides: [...this.state.sides.slice(0, this.state.sides.indexOf(e.target.value)), ...this.state.sides.slice(this.state.sides.indexOf(e.target.value) + 1)]});
@@ -39,10 +42,10 @@ class MenuItemModalContent extends Component {
 
   handleSubmit = (e) => {
     e.preventDefault();
-    axios.post(`/api/add_cart/${this.props.info.id}`, this.state)
-      .then(res => {
-        console.log(res.data);
-      })
+    this.props.updateCart(this.props.info.id, {
+      ...this.state,
+      userId: this.props.user._id
+    });
   };
 
   render() {
@@ -66,13 +69,14 @@ class MenuItemModalContent extends Component {
             <div className='d-flex flex-row justify-content-between align-items-center mb-4'>
               <div className="form-group mb-0">
                 <label htmlFor={`qty-${name}`}>Quantity</label>
-                <select onChange={this.handleInputChange} name='qty' value={this.state.qty} className="form-control mb-0 rounded-0" id={`qty-${name}`}>
+                <select onChange={this.handleInputChange} name='qty' value={this.state.qty}
+                        className="form-control mb-0 rounded-0" id={`qty-${name}`}>
                   {qty}
                 </select>
               </div>
               <p style={{fontWeight: 500}} className="mb-0">${price}.00</p>
             </div>
-            <div  className="alert alert-primary rounded-0" role="alert">
+            <div className="alert alert-primary rounded-0" role="alert">
               Sides
             </div>
             <div className='d-flex flex-row justify-content-between align-items-end'>
@@ -84,13 +88,18 @@ class MenuItemModalContent extends Component {
               </div>
             </div>
             <div className="form-group mb-0 mt-2">
-              <textarea onChange={this.handleInputChange} name='text' value={this.state.text} style={{fontSize: '0.8rem'}} className="form-control rounded-0" id={`txt-${this.props.name}`} rows="4"
+              <textarea onChange={this.handleInputChange} name='text' value={this.state.text}
+                        style={{fontSize: '0.8rem'}} className="form-control rounded-0" id={`txt-${this.props.name}`}
+                        rows="4"
                         placeholder='Add special instructions (additional charges may apply)'></textarea>
             </div>
           </div>
           <div className="card-footer bg-transparent d-flex justify-content-between">
             <button data-dismiss="modal" aria-label="Close" className="btn btn-outline-danger rounded-0">Cancel</button>
-            <button onClick={this.handleSubmit} type='submit' className="btn btn-success rounded-0"><i className="fal fa-shopping-bag"></i> Add to Lunchbox</button>
+            <button onClick={this.handleSubmit} type='submit' data-dismiss="modal" aria-label="Close"
+                    className="btn btn-success rounded-0"><i
+              className="fal fa-shopping-bag"></i> Add to Lunchbox
+            </button>
           </div>
         </div>
       </form>
@@ -98,4 +107,11 @@ class MenuItemModalContent extends Component {
   }
 }
 
-export default MenuItemModalContent;
+function mapStateToProps({user, cart}) {
+  return {
+    user,
+    cart
+  }
+}
+
+export default connect(mapStateToProps, actions)(MenuItemModalContent);
