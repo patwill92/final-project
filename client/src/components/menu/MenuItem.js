@@ -18,7 +18,7 @@ class MenuItem extends Component {
           <p className="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores aspernatur delectus incidunt ipsam magni non repellendus saepe voluptatibus</p>
           <div className='d-flex flex-row justify-content-between align-items-center'>
             <button className="btn btn-sm btn-primary"><i className="fal fa-plus-square mr-1"></i> Lunchbox</button>
-            <a data-toggle="modal" data-target={`#${this.props.id}-modal`} className="card-link">qty: {this.props.quantity}</a>
+            <a href='#' data-toggle="modal" data-target={`#${this.props.id}-modal`} className="card-link">qty: {this.props.quantity}</a>
           </div>
         </div>
         <MenuItemModal
