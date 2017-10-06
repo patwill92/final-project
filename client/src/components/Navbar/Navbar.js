@@ -7,32 +7,33 @@ import SignupForm from '../Authentication/SignupForm'
 
 class Navbar extends Component {
   render() {
+    let qty = this.props.cart.totalQty && this.props.cart.totalQty;
     let login = (
       <ul className='navbar-nav ml-auto'>
         <li className="nav-item">
           <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
         </li>
         <li className="nav-item">
-          <span className="nav-link" data-toggle="modal" data-target="#login">Login</span>
+          <a href='#' className="nav-link" data-toggle="modal" data-target="#login">Login</a>
         </li>
         <li className="nav-item">
-          <span className="nav-link" data-toggle="modal" data-target="#signup">Signup</span>
+          <a href='#' className="nav-link" data-toggle="modal" data-target="#signup">Signup</a>
         </li>
       </ul>
     );
     let logout = (
       <ul className="navbar-nav ml-auto">
-        <li className="nav-item">
-          <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
+        <li className="nav-item mr-2">
+          <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-2'></i>Menu</Link>
         </li>
-        <li className="nav-item">
-          <a className="nav-link">
-            <span className="fa-layers">
-              <i className="fal fa-shopping-bag" data-fa-transform='grow-8 up-1'></i>
-              <span style={{fontWeight: 500}} className="fa-layers-text" data-fa-transform="shrink-5 down-2">0</span>
-            </span>
-            <span className='ml-3'>Lunchbox</span>
-            </a>
+        <li className="nav-item mr-2 d-flex align-items-center">
+          <Link to='checkout' className='d-flex align-items-center shop'>
+            <div className={'cart d-flex align-items-center justify-content-center flex-column '}>
+              <span style={{color: 'rgba(0, 0, 0, 0.5)'}} className="fal fa-shopping-bag" data-fa-transform='grow-6 up-1'></span>
+              <small style={{fontSize: '0.7rem', fontWeight: 500}} className="cart-qty p-0">{qty}</small>
+            </div>
+            <span style={{color: 'rgba(0, 0, 0, 0.5)'}} className='ml-2 lunch'>Lunchbox</span>
+          </Link>
         </li>
         <li className="nav-item">
           <a href='/user/logout' className="nav-link">Logout</a>
@@ -40,7 +41,7 @@ class Navbar extends Component {
       </ul>
     );
     const navbarStatus = () => {
-      switch(this.props.user) {
+      switch (this.props.user) {
         case null:
           return '';
           break;
@@ -80,8 +81,8 @@ class Navbar extends Component {
   }
 }
 
-function mapStateToProps({user}) {
-  return { user }
+function mapStateToProps({user, cart}) {
+  return {user, cart}
 }
 
 export default connect(mapStateToProps)(Navbar);

@@ -1,5 +1,4 @@
 (function () {
-'use strict';
 
 var _WINDOW = {};
 try {

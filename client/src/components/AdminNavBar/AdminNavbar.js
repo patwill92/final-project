@@ -23,7 +23,7 @@ class AdminNavbar extends Component {
     let logout = (
       <ul className="navbar-nav ml-auto">
         <li className="nav-item">
-          <Link to='admin/menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
+          <Link to='admin/editcontent' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Edit Content</Link>
         </li>
         <li className="nav-item">
         <Link to='admin/kitchen' className="nav-link">Kitchen</Link>

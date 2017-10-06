@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import styles from './OrderList.css';
 import openSocket from 'socket.io-client'
-import API from '../../api/api'
+import API from '../../utils/API'
 import AdminNavbar from "../AdminNavBar/AdminNavbar"
 
 const uri = "http://locathost:8080";
@@ -22,9 +22,7 @@ class OrderList extends Component {
     
     componentDidMount() {
         socket.on("refresh feed", (msg) => {
-            this.setState({
-                comments: [msg, ...this.state.comments]
-            })
+            console.log(msg)
         })
     }
 
@@ -45,10 +43,14 @@ class OrderList extends Component {
             <div>
                 <AdminNavbar/>
                 <div>
-                    <div style={style} className={styles.show_comments}>
-                        {this.state.comments}
-                    </div>
+                <form onSubmit={this.post}>
+                <textarea type="text" value={this.state.value} onChange={this.handleChange} rows="5" cols="70"/><br /><br />
+                <input type="submit" value="Submit"/>
+                </form>
+                <div className={styles.show_comments}
+                >{this.state.comments}
                 </div>
+            </div>
             </div>
         )
     }

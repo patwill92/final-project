@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {GET_MAIN_MENU, GET_DESSERT_MENU, GET_STARTER_MENU,
-  GET_USER, GET_SCROLL, GET_WIDTH, GET_CART, DELETE_CART_ITEM
+  GET_USER, GET_SCROLL, GET_WIDTH, GET_CART, UPDATE_CART
 } from "./types";
 
 export const getMainMenu = (param) => async dispatch => {
@@ -37,4 +37,9 @@ export const getScroll = () => {
 export const getCart = () => async dispatch => {
   const res = await axios.get('/api/cart');
   dispatch({type: GET_CART, payload: res.data})
+};
+
+export const updateCart = (id, item) => async dispatch =>{
+  const res = await axios.post(`/api/add_cart/${id}`, item);
+  dispatch({type: UPDATE_CART, payload: res.data})
 };

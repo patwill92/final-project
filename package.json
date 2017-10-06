@@ -9,7 +9,7 @@
     "yarn": "1.1.0"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "babel-node server.js",
     "server": "nodemon server.js --exec babel-node",
     "client": "npm run start --prefix client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",

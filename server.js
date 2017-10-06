@@ -119,7 +119,7 @@ io.on('connection',function(socket){
 });
 
 const add_status = function (status,callback) {
-    Message.create({name: status, },function(err){
+    Message.create({s_text: status},function(err){
         if(!err) {
             callback(true);
         }

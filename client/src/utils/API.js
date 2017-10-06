@@ -6,7 +6,7 @@ export default {
     return axios.get("/api/menus");
   },
   getOrders: function() {
-    return axios.get("/api/orders")
+    console.log("test of the function call")
   },
   // Deletes the book with the given id
   deleteMenu: function (id) {

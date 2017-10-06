@@ -4,6 +4,8 @@ import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import * as actions from './actions';
 import Home from './pages/home/Home'
 import Menu from './pages/menu/Menu'
+import EditContent from './pages/editcontent/EditContent'
+import Checkout from "./pages/checkout/Checkout";
 import Fail from './pages/menu/Fail'
 import Admin from './pages/admin/Admin'
 import OrderList from './components/OrderList/OrderList'
@@ -22,21 +24,16 @@ class App extends Component {
     this.props.getCart();
   };
 
-  // componentWillUnmount = () => {
-  //   window.removeEventListener("resize", this.props.getWidth);
-  //   window.removeEventListener("scroll", this.props.getScroll);
-  // };
-
   render() {
-    let test = this.props.cart ? this.props.cart : null;
-    console.log(test);
-    return (
+    return  (
       <Router>
         <div>
           <Route exact path="/" component={Home}/>
           <Route path="/menu" component={Menu}/>
+          <Route path="/checkout" component={Checkout}/>
           <Route exact path="/fail" component={Fail}/>
           <Route exact path="/admin" component={Admin}/>
+          <Route exact path="/admin/editcontent" component={EditContent}/>
           <Route exact path="/admin/kitchen" component={OrderList}/>
         </div>
       </Router>

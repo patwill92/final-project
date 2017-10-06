@@ -3,7 +3,10 @@ mongoose.connect('mongodb://localhost/ghostusers');
 
 const Menu = require('./TestData');
 const Item = require('./TestItem');
+<<<<<<< HEAD
 const OrderItem = require('./TestOrderItem');
+=======
+>>>>>>> 714ac6406a378a5f1756b02eb236f43f0aa1fb9c
 
 // const TestMenu = new Menu({
 //   name: "lunch"
@@ -25,6 +28,7 @@ function MenuItem(name, category, price, quantity) {
   this.quantity = quantity
 }
 
+<<<<<<< HEAD
 function OrderItems(name, category, price, quantity) {
   this.name = name;
   this.category = category;
@@ -37,6 +41,8 @@ const orderItems = [
   new OrderItems("Pasta", "starter", 13, 2)
 ]
 
+=======
+>>>>>>> 714ac6406a378a5f1756b02eb236f43f0aa1fb9c
 const menuItems = [
   new MenuItem('Pizza', 'main', 10, 200),
   new MenuItem('Burger', 'main', 8, 100),
@@ -68,6 +74,7 @@ menuItems.forEach((item) => {
       });
     }
   })
+<<<<<<< HEAD
 });
 
 orderItems.forEach((item) => {
@@ -87,4 +94,6 @@ orderItems.forEach((item) => {
       });
     }
   })
+=======
+>>>>>>> 714ac6406a378a5f1756b02eb236f43f0aa1fb9c
 });
