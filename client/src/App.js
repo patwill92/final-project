@@ -4,7 +4,7 @@ import {BrowserRouter as Router, Route} from 'react-router-dom';
 import * as actions from './actions';
 import Home from './pages/home/Home'
 import Menu from './pages/menu/Menu'
-import Admin from './pages/admin/Admin'
+import EditContent from './pages/editcontent/EditContent'
 import Checkout from "./pages/checkout/Checkout";
 import Fail from './pages/menu/Fail'
 import Admin from './pages/admin/Admin'

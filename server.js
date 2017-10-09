@@ -12,7 +12,6 @@ const cloudinary = require('cloudinary');
 
 const Menu = require('./models/Menu');
 const Item = require('./models/Item')
-
 const keys = require('./config/keys');
 const app = express();
 const localUsers = require("./routes/localAuthRoutes");
@@ -20,7 +19,11 @@ const thirdPartyUsers = require("./routes/thirdPartyAuthRoutes");
 const apiRoutes = require("./routes/apiRoutes");
 mongoose.connect(keys.mongoURI);
 
-
+cloudinary.config({
+  cloud_name: 'daj4m3xio',
+  api_key: '979417658567592',
+  api_secret: 'xhiWzS6C1UYHhI69pHk47k_2fD4'
+});
 
 require('./services/passport');
 
