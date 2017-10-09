@@ -136,7 +136,7 @@ const add_status = function (status,callback) {
     });
 };
 
-const ioPORT = 8080;
+const ioPORT = process.env.PORT || 5050;
 
 server.listen(ioPORT,function(){
     console.log("Listening on " + ioPORT);

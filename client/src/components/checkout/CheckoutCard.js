@@ -4,11 +4,13 @@ import {connect} from 'react-redux';
 import CheckoutItem from './CheckoutItem'
 import CheckoutPrice from './CheckoutPrice'
 import CheckoutQty from './CheckoutQty'
+import CheckoutPayment from "./CheckoutPayment"
+
 
 class CheckoutCard extends Component {
   render() {
     let cart = this.props.cart ? this.props.cart.items : false;
-    console.log(cart);
+    console.log("This is the cart-- " + JSON.stringify(this.props.cart));
     let names, prices, quantities;
     if (cart.length > 0) {
       names = cart.map(item => {
@@ -44,19 +46,26 @@ class CheckoutCard extends Component {
       });
     }
     return (
-      <div className={'d-flex flex-row justify-content-between align-items-stretch mt-3'}>
-        <div className="card col-8 pl-0 pr-0 rounded-0 border-0">
-          <h5 style={{fontWeight: 400}} className="card-header rounded-0">Items</h5>
-          {names}
+      <div>
+        <div className={'d-flex flex-row justify-content-between align-items-stretch mt-3'}>
+          <div className="card col-8 pl-0 pr-0 rounded-0 border-0">
+            <h5 style={{fontWeight: 400}} className="card-header rounded-0">Items</h5>
+            {names}
+          </div>
+          <div className="card col-2 pl-0 pr-0 rounded-0 border-0">
+            <h5 style={{fontWeight: 400}} className="card-header rounded-0 text-center middle">Qty</h5>
+            {quantities}
+          </div>
+          <div className="card col-2 pl-0 pr-0 rounded-0 border-0">
+            <h5 style={{fontWeight: 400}} className="card-header rounded-0 text-center">Price</h5>
+            {prices}
+          </div>
         </div>
-        <div className="card col-2 pl-0 pr-0 rounded-0 border-0">
-          <h5 style={{fontWeight: 400}} className="card-header rounded-0 text-center middle">Qty</h5>
-          {quantities}
-        </div>
-        <div className="card col-2 pl-0 pr-0 rounded-0 border-0">
-          <h5 style={{fontWeight: 400}} className="card-header rounded-0 text-center">Price</h5>
-          {prices}
-        </div>
+        <CheckoutPayment
+              name={'The Road to learn React'}
+              description={'Only the Book'}
+              amount={this.props.cart.totalPrice}
+            />
       </div>
     )
   }
