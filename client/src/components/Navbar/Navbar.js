@@ -11,7 +11,7 @@ class Navbar extends Component {
     let login = (
       <ul className='navbar-nav ml-auto'>
         <li className="nav-item">
-          <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
+          <Link to='../menu' className="nav-link"><i className='fal fa-list-alt mr-1'></i>Menu</Link>
         </li>
         <li className="nav-item">
           <a href='#' className="nav-link" data-toggle="modal" data-target="#login">Login</a>
@@ -22,9 +22,9 @@ class Navbar extends Component {
       </ul>
     );
     let logout = (
-      <ul className="navbar-nav ml-auto">
+      <ul className="navbar-nav ml-auto tester">
         <li className="nav-item mr-2">
-          <Link to='menu' className="nav-link"><i className='fal fa-list-alt mr-2'></i>Menu</Link>
+          <Link to='../menu' className="nav-link"><i className='fal fa-list-alt mr-2'></i>Menu</Link>
         </li>
         <li className="nav-item mr-2 d-flex align-items-center">
           <Link to='checkout' className='d-flex align-items-center shop'>

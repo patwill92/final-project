@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import API from "../../utils/API";
 import AdminNavbar from "../../components/AdminNavBar/AdminNavbar"
 import LoginForm from "../../components/Authentication/LoginForm"
+import AuthModal from '../../components/Authentication/AuthModal';
 
 class Admin extends Component {
   state = {
@@ -32,7 +33,12 @@ class Admin extends Component {
   render() {
     return (
       <div>
-         <LoginForm/>
+        <AuthModal
+        id='login'
+        title='Sign In'
+      >
+        <LoginForm/>
+      </AuthModal>
         {/* <div className="jumbotron jumbotron-fluid">
           <div className="container">
             <h1 className="display-3">Admin</h1>
