@@ -1,8 +1,11 @@
 const express = require('express');
 const router = express.Router();
-const Menu = require('../seed/TestData');
-const Item = require('../seed/TestItem');
+const multer = require('multer');
+const fs = require('fs');
+const Menu = require('../models/Menu');
+const Item = require('../models/Item');
 const User = require('../models/User');
+const cloudinary = require('cloudinary');
 const Cart = require('../models/Cart');
 
 const ensureAuthenticated = (req, res, next) => {
@@ -30,22 +33,44 @@ router.get('/current_user', (req, res) => {
 });
 
 router.get('/menu', (req, res) => {
-  Menu.find({})
-    .populate('items')
-    .exec((err, doc) => {
-      if (err)
-        res.send(err);
-      else
-        res.send(doc);
+  Item
+    .find({category: 'starter', available: false})
+    .then((doc) => {
+      console.log(doc)
+      res.send(doc)
     })
 });
 
 router.get('/menu/:cat', (req, res) => {
   Item
-    .find({category: req.params.cat})
+    .find({category: req.params.cat, available: true})
     .then((doc) => {
+      console.log(doc)
       res.send(doc)
     })
+});
+
+router.get('/menu/admin/:cat', (req, res) => {
+  Item
+    .find({category: req.params.cat})
+    .then((doc) => {
+      console.log(doc);
+      res.send(doc)
+    })
+});
+
+router.post('/menu/admin/update/:id', (req, res) => {
+  console.log(req.body);
+  console.log(req.params.id);
+  Item.update({_id: req.params.id}, {available: req.body.available}, (err, item) => {
+    if (err)
+      console.log(err);
+    Item
+      .find({category: req.body.category})
+      .then((doc) => {
+        res.send(doc)
+      })
+  });
 });
 
 router.post('/add_cart/:id', (req, res) => {
@@ -68,7 +93,7 @@ router.post('/add_cart/:id', (req, res) => {
         text,
         price: item.price
       };
-      cart.addToCart(myItem)
+      cart.addToCart(myItem);
       req.session.cart = cart;
       console.log(cart);
       User.update({_id: req.body.userId}, {cart: JSON.stringify(req.session.cart)}, (err, item) => {
@@ -81,8 +106,65 @@ router.post('/add_cart/:id', (req, res) => {
   })
 });
 
+router.post('/edit_cart/:id', (req, res) => {
+  let itemId = req.params.id;
+  let qty = req.body.qty;
+  let text = req.body.text;
+  let sides = req.body.sides;
+  User.findById(req.user.id, (err, user) => {
+    let cart = JSON.parse(user.cart);
+    let totalQty = 0;
+    let totalPrice = 0;
+    cart.items.forEach((item, i) => {
+      if (item.id === itemId && item.sides.join('') === sides.join('') && item.text === text) {
+        cart.items[i].qty = qty;
+      }
+      totalQty += cart.items[i].qty;
+      totalPrice += cart.items[i].qty * cart.items[i].price;
+    });
+    cart.totalPrice = totalPrice;
+    cart.totalQty = totalQty;
+    req.session.cart = cart;
+    User.findOneAndUpdate({_id: user.id}, {$set: {cart: JSON.stringify(cart)}}, function (err, user) {
+      if (err) {
+        console.log(err);
+      }
+      res.send(req.session.cart);
+    });
+  });
+});
+
 router.get('/cart', (req, res) => {
   res.send(req.user ? req.user.cart : {})
 });
+
+router.post('/menu_form',
+  multer({
+    dest: './uploads/'
+  }).single('avatar'),
+  (req, res) => {
+    cloudinary.uploader.upload(req.file.path, result => {
+      let image = result.secure_url;
+      let menuItem = {
+        ...req.body,
+        image,
+        category: req.body.category.toLowerCase(),
+        available: !!Number(req.body.available)
+      };
+      let newItem = new Item(menuItem);
+      newItem.save((err, item) => {
+        console.log(item);
+        Item
+          .find({category: req.body.category.toLowerCase(), available: true})
+          .then((doc) => {
+            console.log(doc);
+            res.send({
+              category: req.body.category.toLowerCase(),
+              data: doc
+            })
+          })
+      })
+    })
+  });
 
 module.exports = router;

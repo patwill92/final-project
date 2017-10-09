@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import AuthModal from '../Authentication/AuthModal'
 import LoginForm from '../Authentication/LoginForm'
 import SignupForm from '../Authentication/SignupForm'
+const $ = window.$;
 
 class Navbar extends Component {
   render() {
@@ -27,13 +28,16 @@ class Navbar extends Component {
           <Link to='../menu' className="nav-link"><i className='fal fa-list-alt mr-2'></i>Menu</Link>
         </li>
         <li className="nav-item mr-2 d-flex align-items-center">
-          <Link to='checkout' className='d-flex align-items-center shop'>
+          <Link to='/checkout' className='d-flex align-items-center shop'>
             <div className={'cart d-flex align-items-center justify-content-center flex-column '}>
               <span style={{color: 'rgba(0, 0, 0, 0.5)'}} className="fal fa-shopping-bag" data-fa-transform='grow-6 up-1'></span>
               <small style={{fontSize: '0.7rem', fontWeight: 500}} className="cart-qty p-0">{qty}</small>
             </div>
             <span style={{color: 'rgba(0, 0, 0, 0.5)'}} className='ml-2 lunch'>Lunchbox</span>
           </Link>
+        </li>
+        <li className="nav-item">
+          <Link to='/admin/menu' className="nav-link">Admin</Link>
         </li>
         <li className="nav-item">
           <a href='/user/logout' className="nav-link">Logout</a>

@@ -12,6 +12,7 @@ class CheckoutItem extends Component {
           <p className="card-text d-flex flex-column">
             <span><span style={{fontWeight: 500}}>Sides </span> {this.props.sides}</span>
             <span><span style={{fontWeight: 500}}>Comments </span> {this.props.comments}</span>
+            <span><span style={{fontWeight: 500}}>Id </span> {this.props.itemId}</span>
           </p>
         </div>
       </div>

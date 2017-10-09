@@ -17,7 +17,8 @@ class CheckoutCard extends Component {
             name={item.name}
             sides={`${item.sides.join(', ')}`}
             comments={item.text}
-            key={item.id + '-name'}
+            itemId={item.id}
+            key={item.id + '-name-' + item.qty}
           />
         )
       });
@@ -25,7 +26,8 @@ class CheckoutCard extends Component {
         return (
           <CheckoutPrice
             price={item.price * item.qty}
-            key={item.id + '-price'}
+            itemId={item.id}
+            key={item.id + '-price-' + item.qty}
           />
         )
       });
@@ -33,7 +35,10 @@ class CheckoutCard extends Component {
         return (
           <CheckoutQty
             quantity={item.qty}
-            key={item.id + '-qty'}
+            sides={item.sides}
+            comments={item.text}
+            itemId={item.id}
+            key={item.id + '-qty-' + item.qty}
           />
         )
       });

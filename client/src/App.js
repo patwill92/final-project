@@ -1,16 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import * as actions from './actions';
 import Home from './pages/home/Home'
 import Menu from './pages/menu/Menu'
-import EditContent from './pages/editcontent/EditContent'
+import Admin from './pages/admin/Admin'
 import Checkout from "./pages/checkout/Checkout";
 import Fail from './pages/menu/Fail'
 import Admin from './pages/admin/Admin'
 import OrderList from './components/OrderList/OrderList'
 
 import './App.css';
+
 
 class App extends Component {
 
@@ -20,6 +21,9 @@ class App extends Component {
     this.props.getMainMenu();
     this.props.getStarterMenu();
     this.props.getDessertMenu();
+    this.props.getAdminMenu('main');
+    this.props.getAdminMenu('starter');
+    this.props.getAdminMenu('dessert');
     this.props.getUser();
     this.props.getCart();
   };
@@ -31,6 +35,7 @@ class App extends Component {
           <Route exact path="/" component={Home}/>
           <Route path="/menu" component={Menu}/>
           <Route path="/checkout" component={Checkout}/>
+          <Route path="/admin" component={Admin}/>
           <Route exact path="/fail" component={Fail}/>
           <Route exact path="/admin" component={Admin}/>
           <Route exact path="/admin/editcontent" component={EditContent}/>

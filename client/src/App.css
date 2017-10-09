@@ -41,3 +41,5 @@ select:hover, select *:hover {
   border-left: 5px solid #fff;
   border-right: 5px solid #fff;
 }
+
+.switch{border:1px solid #ccc;width:50px;height:26px;border-radius:13px;cursor:pointer;display:inline-block;background:#dc3545}.switch-toggle{border:1px solid #999;box-shadow:1px 1px 1px #ccc;width:25px;height:24px;left:0;border-radius:12px;background:#fff;position:relative;transition:left .2s ease-in-out}.switch.on{background:#28a745}.switch.on .switch-toggle{left:23px}.switch.disabled{cursor:not-allowed}
