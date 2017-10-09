@@ -143,6 +143,13 @@ server.listen(ioPORT,function(){
 });
 
 //---------------------------------Payment Code-----------------------------------
+
+
+//Index.js
+const configureRoutes = require('./routes');
+
+const paymentApp = express();
+
 const cors = require('cors');
 
 const CORS_WHITELIST = require('./constants/frontend');
@@ -155,7 +162,7 @@ const corsOptions = {
 };
 
 const configureServer = app => {
-  app.use(cors());
+  app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
 
   app.use(bodyParser.json());
 };
@@ -169,10 +176,6 @@ const SERVER_CONFIGS = {
   PORT: process.env.PORT || SERVER_PORT,
 };
 
-//Index.js
-const configureRoutes = require('./routes');
-
-const paymentApp = express();
 
 configureServer(app);
 configureRoutes(app);
