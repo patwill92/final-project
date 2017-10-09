@@ -8,9 +8,10 @@ const session = require('express-session');
 const MongoStore = require('connect-mongo')(session);
 const flash = require('connect-flash');
 const passport = require('passport');
+const cloudinary = require('cloudinary');
 
-const Menu = require('./seed/TestData');
-const Item = require('./seed/TestItem');
+const Menu = require('./models/Menu');
+const Item = require('./models/Item')
 
 const keys = require('./config/keys');
 const app = express();
@@ -19,11 +20,14 @@ const thirdPartyUsers = require("./routes/thirdPartyAuthRoutes");
 const apiRoutes = require("./routes/apiRoutes");
 mongoose.connect(keys.mongoURI);
 
+
+
 require('./services/passport');
 
-app.use(bodyParser.urlencoded({extended: false}));
-
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
+app.use(bodyParser.text());
+app.use(bodyParser.json({type: "application/vnd.api+json"}));
 app.use(cookieParser());
 app.use(session({
   secret: keys.cookieKey,
@@ -69,6 +73,8 @@ app.get("*", (req, res) => {
 });
 
 const PORT = process.env.PORT || 5000;
+
+
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> Server now on port ${PORT}!`);

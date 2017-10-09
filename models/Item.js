@@ -2,11 +2,14 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 
-const TestItemSchema = new Schema({
+const itemSchema = new Schema({
   name: {
     type: String,
   },
   category: {
+    type: String
+  },
+  description: {
     type: String
   },
   price: {
@@ -16,8 +19,7 @@ const TestItemSchema = new Schema({
     type: Boolean
   },
   image: {
-    data: Buffer,
-    contentType: String
+    type: String
   },
   sides: [{
     type: Schema.Types.ObjectId,
@@ -25,6 +27,6 @@ const TestItemSchema = new Schema({
   }]
 });
 
-const Item = mongoose.model("Item", TestItemSchema);
+const Item = mongoose.model("Item", itemSchema);
 
 module.exports = Item;

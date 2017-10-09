@@ -1,5 +1,5 @@
 (function () {
-
+  'use strict';
 var _WINDOW = {};
 try {
   if (typeof window !== 'undefined') _WINDOW = window;

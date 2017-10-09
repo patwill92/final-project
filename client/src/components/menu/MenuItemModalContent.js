@@ -106,12 +106,12 @@ class MenuItemModalContent extends Component {
     )
   }
 }
-
 function mapStateToProps({user, cart}) {
   return {
     user,
     cart
   }
 }
+
 
 export default connect(mapStateToProps, actions)(MenuItemModalContent);

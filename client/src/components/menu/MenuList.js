@@ -5,17 +5,22 @@ import MenuItem from './MenuItem';
 class MenuList extends Component {
   render() {
     let menuList = this.props.list;
-    menuList = menuList.map((item) => {
-      return (
-        <MenuItem
-          key={item._id}
-          id={item._id}
-          name={item.name}
-          quantity={item.quantity}
-          price={item.price}
-        />
-      )
-    });
+    if(menuList) {
+      menuList = menuList.map((item) => {
+        return (
+          <MenuItem
+            key={item._id}
+            id={item._id}
+            name={item.name}
+            image={item.image}
+            description={item.description}
+            price={item.price}
+          />
+        )
+      });
+    } else {
+      menuList = <div/>
+    }
     return (
       <div style={{display: 'inline-block'}} className='card-columns'>
         {menuList}
@@ -24,4 +29,4 @@ class MenuList extends Component {
   }
 }
 
-export default MenuList
+export default MenuList;

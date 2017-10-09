@@ -5,3 +5,9 @@ module.exports = {
   mongoURI: 'mongodb://localhost/ghostusers',
   cookieKey: 'kljsndgkjlnsdkjnfqwttplskrndi'
 };
+
+cloudinary.config({
+  cloud_name: 'daj4m3xio',
+  api_key: '979417658567592',
+  api_secret: 'xhiWzS6C1UYHhI69pHk47k_2fD4'
+});

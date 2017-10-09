@@ -1,4 +1,4 @@
-import {GET_CART, UPDATE_CART} from "../actions/types";
+import {GET_CART, UPDATE_CART, EDIT_CART} from "../actions/types";
 import isEmpty from 'lodash/isEmpty';
 
 export default (state = {
@@ -18,6 +18,11 @@ export default (state = {
         };
       }
     case UPDATE_CART:
+      return {
+        ...state,
+        ...action.payload
+      };
+    case EDIT_CART:
       return {
         ...state,
         ...action.payload
