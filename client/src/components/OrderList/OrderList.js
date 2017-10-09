@@ -4,9 +4,9 @@ import openSocket from 'socket.io-client'
 import API from '../../utils/API'
 import AdminNavbar from "../AdminNavBar/AdminNavbar"
 
-const uri = "http://locathost:8080";
+const uri = "http://locathost:8050";
 
-const socket = openSocket('http://localhost:8080');
+const socket = openSocket('http://localhost:8050');
 
 const style = {
     boxShadow: '0px 0px 1px 0px rgba(88, 88, 96, 0.46)'

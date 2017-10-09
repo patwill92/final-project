@@ -15,6 +15,7 @@ const successPayment = data => {
 
 const errorPayment = data => {
   alert('Payment Error');
+  console.log("error data" + data)
 };
 
 const onToken = (amount, description) => token =>

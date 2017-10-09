@@ -1,4 +1,4 @@
-const PAYMENT_SERVER_URL = process.env.NODE_ENV === 'production'
+const PAYMENT_SERVER_URL = process.env.NODE_ENV === 'dev'
 ? 'http://myapidomain.com'
 : 'http://localhost:8080';
 

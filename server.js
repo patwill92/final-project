@@ -141,3 +141,43 @@ const ioPORT = process.env.PORT || 5050;
 server.listen(ioPORT,function(){
     console.log("Listening on " + ioPORT);
 });
+
+//---------------------------------Payment Code-----------------------------------
+const cors = require('cors');
+
+const CORS_WHITELIST = require('./constants/frontend');
+
+const corsOptions = {
+  origin: (origin, callback) =>
+    (CORS_WHITELIST.indexOf(origin) !== -1)
+      ? callback(null, true)
+      : callback(new Error('Not allowed by CORS'))
+};
+
+const configureServer = app => {
+  app.use(cors());
+
+  app.use(bodyParser.json());
+};
+
+//constant
+
+const SERVER_PORT = 8080;
+
+const SERVER_CONFIGS = {
+  PRODUCTION: process.env.NODE_ENV === 'production',
+  PORT: process.env.PORT || SERVER_PORT,
+};
+
+//Index.js
+const configureRoutes = require('./routes');
+
+const paymentApp = express();
+
+configureServer(app);
+configureRoutes(app);
+
+paymentApp.listen(SERVER_CONFIGS.PORT, error => {
+  if (error) throw error;
+  console.log('Payment server running on port: ' + SERVER_CONFIGS.PORT);
+});
