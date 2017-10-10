@@ -10,7 +10,11 @@ const userSchema = new Schema({
     unique: true
   },
   password: String,
-  cart:  { type: String, default: '' }
+  cart:  { type: String, default: '' },
+  orders: [{
+    type: Schema.Types.ObjectId,
+    ref: "Order"
+  }]
 });
 
 const User = mongoose.model('users', userSchema);

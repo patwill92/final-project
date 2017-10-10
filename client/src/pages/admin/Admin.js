@@ -4,16 +4,23 @@ import {connect} from 'react-redux';
 import * as actions from '../../actions';
 import AdminNav from '../../components/admin/AdminNav'
 import AdminMain from '../../components/admin/AdminMain'
+import KitchenAdmin from '../../components/admin/KitchenAdmin'
 import AdminMenuAdd from '../../components/admin/AdminMenuAdd'
 import AdminContent from '../../components/admin/AdminContent'
 
 const style = {
   boxShadow: '0px 0px 1px 0px rgba(88, 88, 96, 0.46)'
-}
+};
 
 class Admin extends Component {
   componentWillMount = () => {
     this.props.history.push('/admin/menu')
+  };
+
+  componentWillUnmount = () => {
+    this.props.getMainMenu();
+    this.props.getStarterMenu();
+    this.props.getDessertMenu();
   };
   render() {
     return (
@@ -25,6 +32,7 @@ class Admin extends Component {
         <Switch>
           <Route exact path="/admin/menu" component={AdminMain}/>
           <Route exact path="/admin/menu/add-item" component={AdminMenuAdd}/>
+          <Route exact path="/admin/kitchen" component={KitchenAdmin}/>
           <Route exact path="/admin/edit-content" component={AdminContent}/>
         </Switch>
       </div>

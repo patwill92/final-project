@@ -10,7 +10,8 @@ class AdminContent extends Component {
   componentDidMount = () => {
     this.props.getAdminTab({
       menu: false,
-      content: true
+      content: true,
+      kitchen: false
     })
   };
   render() {

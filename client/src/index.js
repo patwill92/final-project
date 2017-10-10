@@ -11,7 +11,6 @@ import './index.css';
 import store from './store';
 import App from './App';
 import $ from 'jquery'
-import 'popper.js/dist/popper'
 import 'bootstrap/dist/js/bootstrap'
 import registerServiceWorker from './registerServiceWorker';
 ReactDOM.render(

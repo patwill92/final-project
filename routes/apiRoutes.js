@@ -5,6 +5,8 @@ const fs = require('fs');
 const Menu = require('../models/Menu');
 const Item = require('../models/Item');
 const User = require('../models/User');
+const Dish = require('../models/Dish');
+const Order = require('../models/Order');
 const cloudinary = require('cloudinary');
 const Cart = require('../models/Cart');
 
@@ -45,7 +47,7 @@ router.get('/menu/:cat', (req, res) => {
   Item
     .find({category: req.params.cat, available: true})
     .then((doc) => {
-      console.log(doc)
+      console.log(doc);
       res.send(doc)
     })
 });
@@ -91,7 +93,8 @@ router.post('/add_cart/:id', (req, res) => {
         qty: Number(qty),
         sides: sides.sort(),
         text,
-        price: item.price
+        price: item.price,
+        image: item.image
       };
       cart.addToCart(myItem);
       req.session.cart = cart;
@@ -166,5 +169,70 @@ router.post('/menu_form',
       })
     })
   });
+
+router.post('/order', (req, res) => {
+  console.log(req.body);
+  let order = new Order({
+    totalQty: req.body.totalQty,
+    totalPrice: req.body.totalPrice
+  });
+  order.save((err, doc) => {
+    let id = doc._id;
+    req.session.orderId = id;
+    let start = 0;
+    req.body.items.forEach((item, i) => {
+      let dish = new Dish({
+        item: item.id,
+        qty: item.qty,
+        text: item.text
+      });
+      dish.save((err, dish) => {
+        if (err) {
+          console.log(err);
+        }
+        else {
+          Order.findOneAndUpdate({_id: id}, {$push: {'dishes': dish._id}}, {new: true}, (err, dishDoc) => {
+            if (err) {
+              console.log(err);
+            }
+            else {
+              start++;
+              if (start === req.body.items.length) {
+                User.findOneAndUpdate(
+                  {_id: req.user._id},
+                  {$set: {cart: ''}, $push: {'orders': dishDoc._id}},
+                  {new: true},
+                  (err) => {
+                    if (err)
+                      console.log(err);
+                    delete req.session.orderId;
+                    delete req.session.cart;
+                    res.send({orderId: dishDoc._id})
+                  });
+              }
+            }
+          })
+        }
+      });
+    });
+  })
+});
+
+router.get('/orders', (req, res) => {
+  Order
+    .find({})
+    .populate({
+      path: 'dishes',
+      populate: {
+        path: 'item',
+        model: 'Item'
+      }
+    })
+    .exec((err, item) => {
+      if (err)
+        console.log(err);
+      res.send(item);
+    });
+});
 
 module.exports = router;

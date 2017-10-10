@@ -5,7 +5,7 @@ class CheckoutItem extends Component {
     return (
       <div className="card-body d-flex flex-row justify-content-start align-items-center">
         <img style={{width: '80px', height: 'auto'}}
-             src="http://support.yumpu.com/en/wp-content/themes/qaengine/img/default-thumbnail.jpg" alt="default"
+             src={this.props.image} alt="default"
              className={'mr-3'}/>
         <div className="d-flex flex-column justify-content-between align-items-left">
           <h5 className="text-left">{this.props.name}</h5>

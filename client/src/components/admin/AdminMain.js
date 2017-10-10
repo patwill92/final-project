@@ -18,7 +18,8 @@ class AdminMain extends Component {
   componentDidMount = () => {
     this.props.getAdminTab({
       menu: true,
-      content: false
+      content: false,
+      kitchen:false
     })
   };
 
@@ -38,7 +39,7 @@ class AdminMain extends Component {
       )
     }) : <div/>;
     return (
-      <div className="card rounded-0 mb-3">
+      <div key={type} className="card rounded-0 mb-3">
         <div className="card-header rounded-0">
           <h4 style={weight} className="display-6 mb-0">{type.charAt(0).toUpperCase() + type.slice(1)}</h4>
         </div>
@@ -52,7 +53,7 @@ class AdminMain extends Component {
   };
 
   render() {
-    let menus = ['main', 'dessert', 'starter'].map(item => {
+    let menus = ['main', 'dessert', 'starter'].map((item) => {
       return this.renderMenus(item)
     });
     return (
@@ -74,7 +75,6 @@ function mapStateToProps({menu}) {
     starter: menu.adminStarter,
     dessert: menu.adminDessert,
     main: menu.adminMain,
-
   }
 }
 

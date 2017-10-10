@@ -18,6 +18,7 @@ class CheckoutCard extends Component {
             sides={`${item.sides.join(', ')}`}
             comments={item.text}
             itemId={item.id}
+            image={item.image}
             key={item.id + '-name-' + item.qty}
           />
         )

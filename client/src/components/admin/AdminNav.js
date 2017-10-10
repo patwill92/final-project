@@ -33,6 +33,11 @@ class AdminNav extends Component {
                   className={classNames('nav-link ', {'active': this.props.adminTab.content})}>
               Page Content</Link>
           </li>
+          <li style={border} className="nav-item tab-link">
+            <Link style={color} to='/admin/kitchen'
+                  className={classNames('nav-link ', {'active': this.props.adminTab.kitchen})}>
+              Kitchen</Link>
+          </li>
         </ul>
       </div>
     );
