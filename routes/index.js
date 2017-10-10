@@ -1,7 +1,7 @@
 const paymentApi = require('./payments');
 
-const configureRoutes = app => {
-  paymentApi(app);
+const configureRoutes = app2 => {
+  paymentApi(app2);
 };
 
 module.exports = configureRoutes;

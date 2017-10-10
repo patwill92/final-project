@@ -148,7 +148,7 @@ server.listen(ioPORT,function(){
 //Index.js
 const configureRoutes = require('./routes');
 
-const paymentApp = express();
+const app2 = express();
 
 const cors = require('cors');
 
@@ -161,10 +161,10 @@ const corsOptions = {
       : callback(new Error('Not allowed by CORS'))
 };
 
-const configureServer = app => {
-  app.use(cors({credentials: true, origin: 'http://localhost:8080'}));
+const configureServer = app2 => {
+  app2.use(cors());
 
-  app.use(bodyParser.json());
+  app2.use(bodyParser.json());
 };
 
 //constant
@@ -177,10 +177,10 @@ const SERVER_CONFIGS = {
 };
 
 
-configureServer(app);
-configureRoutes(app);
+configureServer(app2);
+configureRoutes(app2);
 
-paymentApp.listen(SERVER_CONFIGS.PORT, error => {
+app2.listen(SERVER_CONFIGS.PORT, error => {
   if (error) throw error;
   console.log('Payment server running on port: ' + SERVER_CONFIGS.PORT);
 });

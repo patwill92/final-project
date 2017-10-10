@@ -62,8 +62,8 @@ class CheckoutCard extends Component {
           </div>
         </div>
         <CheckoutPayment
-              name={'The Road to learn React'}
-              description={'Only the Book'}
+              name={'Ghost Grub'}
+              description={'Great Food'}
               amount={this.props.cart.totalPrice}
             />
       </div>
